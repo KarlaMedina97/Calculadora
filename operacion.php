@@ -14,35 +14,41 @@
     <script src="js/formulario.js"></script>
 </head>
 <body>
-    <h1>Calculadora</h1>
-    <br/>
-    <div class="col-md-4">
-        <form id="form" name="form" action="operacion.php" method="post">
-            <div>
-                <input type="number" class="form-control" name="numero1" placeholder="Ingrese el primer valor">
+    <div class="container">
+        <div>
+            <h1>Calculadora</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-12 fix justify-content-center">
+                <form id="form" name="form" action="operacion.php" method="post">
+                    <div class="col-md-8 form-group">
+                        <div class="col-lg-8">
+                            <input type="number" class="form-control" name="numero1" placeholder="Ingrese el primer valor">
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="number" class="form-control" name="numero2" placeholder="Ingrese el segundo valor">
+                        </div>
+                        <div class="col-lg-8">
+                            <select name="operaciones" class="form-control">
+                                <option value="0">Operacion</option>
+                                <option value="1">Suma</option>
+                                <option value="2">Resta</option>
+                                <option value="3">Multiplicación</option>
+                                <option value="4">División</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-8">
+                            <input type="submit" class="btn btn-success" value="Calcular" name="Calcular">
+                            <button type="reset" value="Limpiar" class="btn btn-danger">Limpiar</button>
+                        </div>
+                        <div class="col-lg-8">
+                            <input class="form-control" type="number" id="resultado" readonly>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div>
-                <input type="number" class="form-control" name="numero2" placeholder="Ingrese el segundo valor">
-            </div>
-            <div>
-                <select name="operaciones" class="form-control">
-                    <option value="0">Suma</option>
-                    <option value="1">Resta</option>
-                    <option value="2">Multiplicación</option>
-                    <option value="3">División</option>
-                </select>
-            </div>
-            <br/>
-            <div>
-                <input type="submit" class="btn btn-success" value="Calcular" name="Calcular">
-                <button type="reset" value="Limpiar" class="btn btn-danger">Limpiar</button>
-            </div>
-            <br/>
-            <!-- <div>
-                <input class="form-control" type="number" id="resultado" readonly>
-            </div> -->
-        </form>
-    </div>
+        </div>
+    </div> 
 </body>
 </html>
 
@@ -57,10 +63,11 @@ include("clases.php");
 
         switch($operacion){
 
-            case 0:echo op_mate::sumar($val1,$val2); break;
-            case 1:echo op_mate::restar($val1,$val2);break;
-            case 2:echo op_mate::multiplicar($val1,$val2);break;
-            case 3:echo op_mate::dividir($val1,$val2);break;
+            case 1:echo op_mate::sumar($val1,$val2); break;
+            case 2:echo op_mate::restar($val1,$val2);break;
+            case 3:echo op_mate::multiplicar($val1,$val2);break;
+            case 4:echo op_mate::dividir($val1,$val2);break;
         }
     }
+    
 ?>
