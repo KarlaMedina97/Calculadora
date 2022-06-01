@@ -1,0 +1,20 @@
+body{
+    display:list-item;
+}
+
+h1 {
+    font-size: 50px;
+    text-align: center;
+    font-family: 'Kanit';
+    color: bisque;
+}
+
+div #enviar {
+    display: flex;
+    justify-content: center;
+}
+
+div div.btn_on-hover{
+    background-color: crimson;
+}
+
