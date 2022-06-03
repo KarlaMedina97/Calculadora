@@ -164,5 +164,5 @@ if (isset($_GET['Calcular'])){
 </div>
 </center>
 
-    </body>
+</body>
 </html>
