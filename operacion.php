@@ -1,14 +1,11 @@
 <?php
 // extract($_REQUEST);
 // include "conexion/Conexion.php";
+// include "registrar.php";
 // error_reporting(0);
 
-$user = "root";
-$pass = "";
-$host = "localhost";
-
-// conexion con db
-$connection =mysqli_connect($host, $user, $pass);
+$conexion= mysqli_connect('localhost','root', '', 'calculadora');
+// date_default_timezone_get('America/Colombia');
 
 if (isset($_GET['Calcular'])){
     $val1= $_GET['num1'];
@@ -16,25 +13,21 @@ if (isset($_GET['Calcular'])){
     $op= $_GET['operaciones'];
 
     if ($val1 != "" && $val2 != ""){
-        if ($op == "0"){
-            // echo $resultado = "";
-            // echo "Por favor, elija una operación.";
-            echo '<script language="javascript">alert("Por favor, elija una operación.");</script>';
-        }else if ($op == "1"){
+        if ($op == "Suma"){
             $result=$val1+$val2; 
-        }else if ($op == "2"){
+        }else if ($op == "Resta"){
             $result=$val1-$val2;
-        }else if ($op == "3"){
+        }else if ($op == "Multiplicacion"){
             $result=$val1*$val2;
-        }else if ($op == "4"){
-            if ($val1 != 0 && $val2 != 0){
+        }else if ($op == "Division"){
+            if ($val1 != 0 && $val2 != 0 && $val1 > 0 && $val2 >0){
                 $result=$val1/$val2;
                 // echo $resultado;
             }
-            if ($val1 == 0 || $val2 == 0){
-                // echo "Por favor, ingrese los valores en los campos.";
-                echo '<html language="javascript">alert("Por favor, ingrese los valores en los campos.");</html>';
-            }
+            // echo "Por favor, ingrese los valores en los campos.";
+            echo '<html language="javascript">alert("Por favor, ingrese los valores en los campos.");</html>';
+        }else if($val1 == "" && $val2 == "" && $op == 0){
+            echo '<html language="javascript">alert("Por favor, ingrese los valores en los campos.");</html>';
         }
     }
     
@@ -43,22 +36,11 @@ if (isset($_GET['Calcular'])){
         $val2= $_REQUEST['num2'];
         $op = $_REQUEST['operaciones'];
         if ($val1 == "" && $val2 == "")  {
-            $result = "";
+            $result = ""; 
         }
     }
-}
+}   
 
-    if(isset($_POST['calculadora'])){
-        $id = "";
-        $num1 = $_POST['num1'];
-        $num2 = $_POST['num2'];
-        $result = $_POST['resultado'];
-        $operaciones = $_POST['operaciones'];
-
-
-        $insertData = "INSERT INTO calculadora VALUES('$id','$num1','$num2','$result','$operaciones')";
-    }
-    
 ?>
 
 
@@ -94,18 +76,18 @@ if (isset($_GET['Calcular'])){
                     <form id="form" name="form" action="<?php $_SERVER['PHP_SELF'] ?>" method="get">
                         <div class="col-md-4">
                             <div class="col-lg-12 align-items-center">
-                                <input type="number" class="form-control" id="num1" name="num1" placeholder="Ingrese el primer valor">
+                                <input type="number" class="form-control" id="num1" name="num1" placeholder="Ingrese el primer valor" required>
                             </div>
                             <div class="col-lg-12">
-                                <input type="number" class="form-control" id="num2" name="num2" placeholder="Ingrese el segundo valor">
+                                <input type="number" class="form-control" id="num2" name="num2" placeholder="Ingrese el segundo valor" required>
                             </div>
                             <div class="col-lg-12">
                                 <select id="operaciones" name="operaciones" class="form-control">
                                     <option value="0">Operacion</option>
-                                    <option value="1">Suma</option>
-                                    <option value="2">Resta</option>
-                                    <option value="3">Multiplicación</option>
-                                    <option value="4">División</option>
+                                    <option value="Suma">Suma</option>
+                                    <option value="Resta">Resta</option>
+                                    <option value="Multiplicacion">Multiplicación</option>
+                                    <option value="Division">División</option>
                                 </select>
                             </div>
                             <div class="col-lg-12">
@@ -115,19 +97,27 @@ if (isset($_GET['Calcular'])){
                                 <input type="submit" class="btn btn-success" id="Calcular" name="Calcular">
                                 <button type="submit" value="Limpiar" class="btn btn-danger">Limpiar</button>
                             </div>
+                            <div class="col-lg-12">
+                                <input type="hidden" class="form-control" id="fecha" placeholder="<?php echo $fecha=date('Y-m-d H:i:s'); ?>">
+                            </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
+        <center>
         <div id="content">
     <!-- End of Topbar -->
+    <div>
+        <h1>Operaciones</h1>
+    </div>
 
     <!-- Begin Page Content -->
     <div class="container-fluid" style="margin-top:50px;">
         <div class="row">
             <!-- Area Chart -->
-            <div class="col-xl-12 col-lg-8">
+            <div class="col-xl-12 col-lg-12">
                 <div class="card shadow mb-2">
                     <div class="card-body">
                         <div class="table-responsive">
@@ -142,29 +132,37 @@ if (isset($_GET['Calcular'])){
                                         <th>Fecha</th>
                                     </tr>
                                 </thead>
+                                <?php
+
+                                    $insert_sql = "INSERT INTO operacion Values (null, '$val1', '$val2', '$result', '$op', '$fecha')";
+                                    $consulta = mysqli_query($conexion, $insert_sql);
+                                    $sql = "SELECT * FROM operacion ORDER by id DESC LIMIT 10";
+                                    $resultado = mysqli_query($conexion, $sql);
+
+                                    while($mostrar=mysqli_fetch_array($resultado)){
+                                ?>
                                 <tbody>
                                     <tr id="fila" class="primeraFila">
-                                        <td id="num1"><?php echo $val1 ?></td>
-                                        <td id="num1"><?php echo $val1 ?></td>
-                                        <td id="num2"><?php echo $val2 ?></td>
-                                        <td id="result"><?php echo $result ?></td>
-                                        <td id="operaciones"><?php echo $operaciones ?></td>
-                                        <td id="fecha"><?php echo $_POST['Fecha'] ?></td>
+                                        <td><?php echo $mostrar['id']?></td>
+                                        <td><?php echo $mostrar['num1']?></td>
+                                        <td><?php echo $mostrar['num2']?></td>
+                                        <td><?php echo $mostrar['resultado']?></td>
+                                        <td><?php echo $mostrar['operacion']?></td>
+                                        <td><?php echo $mostrar['fecha']?></td>
                                     </tr>
+                                <?php 
+                                    }
+                                ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </div>
-
     </div>
-    <!-- /.container-fluid -->
-
 </div>
+</center>
 
     </body>
 </html>
