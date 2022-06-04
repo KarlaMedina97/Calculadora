@@ -1,9 +1,7 @@
 {
-    "name": "heroku/heroku-buildpack-php",
-    "description": "Toolkit for starting a PHP application locally, with or without foreman, using the same config for PHP and Apache2/Nginx as on Heroku",
-    "keywords": ["heroku", "foreman", "php", "apache", "apache2", "nginx"],
-    "homepage": "https://github.com/heroku/heroku-buildpack-php",
-    "type": "library",
+    "name": "karla/calculadora",
+    "description": "Elementos de carga para calculadora",
+    "type": "project",
     "license": "MIT",
     "authors": [
         {
@@ -11,9 +9,14 @@
             "email": "karlitafuentes22@gmail.com"
         }
     ],
-    "bin": [
-        "bin/heroku-php-apache2",
-        "bin/heroku-php-nginx"
-    ]
+    "minimum-stability": "stable",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },"files": [
+            "app/helpers.php"
+        ]
+    }
 }
 
