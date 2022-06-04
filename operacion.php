@@ -76,10 +76,10 @@ if (isset($_GET['Calcular'])){
                     <form id="form" name="form" action="<?php $_SERVER['PHP_SELF'] ?>" method="get">
                         <div class="col-md-4">
                             <div class="col-lg-12 align-items-center">
-                                <input type="number" class="form-control" id="num1" name="num1" placeholder="Ingrese el primer valor" required>
+                                <input type="number" class="form-control" id="num1" name="num1" placeholder="Ingrese el primer valor">
                             </div>
                             <div class="col-lg-12">
-                                <input type="number" class="form-control" id="num2" name="num2" placeholder="Ingrese el segundo valor" required>
+                                <input type="number" class="form-control" id="num2" name="num2" placeholder="Ingrese el segundo valor">
                             </div>
                             <div class="col-lg-12">
                                 <select id="operaciones" name="operaciones" class="form-control">
@@ -112,7 +112,6 @@ if (isset($_GET['Calcular'])){
     <div>
         <h1>Operaciones</h1>
     </div>
-
     <!-- Begin Page Content -->
     <div class="container-fluid" style="margin-top:50px;">
         <div class="row">
@@ -133,9 +132,12 @@ if (isset($_GET['Calcular'])){
                                     </tr>
                                 </thead>
                                 <?php
-
-                                    $insert_sql = "INSERT INTO operacion Values (null, '$val1', '$val2', '$result', '$op', '$fecha')";
-                                    $consulta = mysqli_query($conexion, $insert_sql);
+                                    
+                                    if ($val1 != "" && $val2 != "")  {
+                                        $insert_sql = "INSERT INTO operacion Values (null, '$val1', '$val2', '$result', '$op', '$fecha')";
+                                        $consulta = mysqli_query($conexion, $insert_sql);
+                                    }
+                
                                     $sql = "SELECT * FROM operacion ORDER by id DESC LIMIT 10";
                                     $resultado = mysqli_query($conexion, $sql);
 
