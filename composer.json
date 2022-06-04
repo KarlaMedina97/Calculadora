@@ -6,17 +6,9 @@
     "authors": [
         {
             "name": "Karla Medina",
-            "email": "karlitafuentes22@gmail.com"
+            "email": "karlitafuentes22@gmail.com",
+            "homepage": "https://calculadora-k.herokuapp.com"
         }
-    ],
-    "minimum-stability": "stable",
-    "require": {},
-    "autoload": {
-        "psr-4": {
-            "App\\": "app/"
-        },"files": [
-            "app/helpers.php"
-        ]
-    }
+    ]
 }
 
