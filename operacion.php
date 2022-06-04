@@ -24,8 +24,8 @@ if (isset($_GET['Calcular'])){
                 $result=$val1/$val2;
                 // echo $resultado;
             }
-            // echo "Por favor, ingrese los valores en los campos.";
             echo '<html language="javascript">alert("Por favor, ingrese los valores en los campos.");</html>';
+            // echo "Por favor, ingrese los valores en los campos.";
         }else if($val1 == "" && $val2 == "" && $op == 0){
             echo '<html language="javascript">alert("Por favor, ingrese los valores en los campos.");</html>';
         }
@@ -133,7 +133,7 @@ if (isset($_GET['Calcular'])){
                                 </thead>
                                 <?php
                                     
-                                    if ($val1 != "" && $val2 != "")  {
+                                    if ($val1 != "" && $val2 != "" && $val1 != 0 && $val2 != 0)  {
                                         $insert_sql = "INSERT INTO operacion Values (null, '$val1', '$val2', '$result', '$op', '$fecha')";
                                         $consulta = mysqli_query($conexion, $insert_sql);
                                     }
