@@ -36,7 +36,7 @@ if (isset($_GET['Calcular'])){
         $val2= $_REQUEST['num2'];
         $op = $_REQUEST['operaciones'];
         if ($val1 == "" && $val2 == "")  {
-            $result = ""; 
+            $result = "";
         }
     }
 }   
