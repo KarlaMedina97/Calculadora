@@ -6,10 +6,10 @@
  */
 class Conexion extends PDO{
     private static $instancia=null;
-    private $host="localhost";
-    private $userName="root";
-    private $password="";
-    private $dataBase = "calculadora";
+    private $host="ec2-34-198-186-145.compute-1.amazonaws.com";
+    private $userName="artjpzwsplviqj";
+    private $password=getenv('CALCULADORA_DB_PASSWORD') ?: '';
+    private $dataBase = "db9m5c4ioomblq";
     
     /**
      * conexión a base de datos.

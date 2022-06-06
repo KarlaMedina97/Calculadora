@@ -1,0 +1,14 @@
+{
+    "name": "karla/calculadora",
+    "description": "Elementos de carga para calculadora",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Karla Medina",
+            "email": "karlitafuentes22@gmail.com",
+            "homepage": "https://calculadora-k.herokuapp.com"
+        }
+    ]
+}
+
