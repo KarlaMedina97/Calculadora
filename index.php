@@ -2,7 +2,7 @@
 // extract($_REQUEST);
 // include "conexion/Conexion.php";
 //error_reporting(0);
-require_once("index.html");
+// require_once("index.html");
 
 $conexion= mysqli_connect('ec2-34-198-186-145.compute-1.amazonaws.com','artjpzwsplviqj', 
     'acef05613fbc6756d362b3411f1e025eaaa4fc2a6b56aeee2ecfc264b7092b83', 'db9m5c4ioomblq');
