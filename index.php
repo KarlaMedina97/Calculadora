@@ -1,8 +1,8 @@
 <?php
 // extract($_REQUEST);
 // include "conexion/Conexion.php";
-// include "registrar.php";
-// error_reporting(0);
+//error_reporting(0);
+require_once("index.html");
 
 $conexion= mysqli_connect('localhost','root', '', 'calculadora');
 // date_default_timezone_get('America/Colombia');
