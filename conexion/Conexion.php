@@ -4,12 +4,13 @@
  *
  * 
  */
-class Conexion extends PDO{
+class conexion extends PDO{
     private static $instancia=null;
     private $host="ec2-34-198-186-145.compute-1.amazonaws.com";
     private $userName="artjpzwsplviqj";
     private $password=getenv('CALCULADORA_DB_PASSWORD') ?: '';
     private $dataBase = "db9m5c4ioomblq";
+    private $port = "5432";
     
     /**
      * conexión a base de datos.
@@ -17,7 +18,7 @@ class Conexion extends PDO{
     public function __construct(){
         try{
            parent::__construct("mysql:host={$this->host};dbname={$this->dataBase}",
-              $this->userName, $this->password);
+              $this->userName, $this->password, $this->port);
           $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
           $this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
         } catch (PDOException $ex) {
