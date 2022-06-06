@@ -1,43 +1,42 @@
 <?php
+// session_start();
 // extract($_REQUEST);
 // include "conexion/Conexion.php";
-//error_reporting(0);
-// require_once("index.html");
+// error_reporting(0);
 
-$conexion= mysqli_connect('ec2-34-198-186-145.compute-1.amazonaws.com','artjpzwsplviqj', 
-    'acef05613fbc6756d362b3411f1e025eaaa4fc2a6b56aeee2ecfc264b7092b83', 'db9m5c4ioomblq');
-// date_default_timezone_get('America/Colombia');
+$dbconn = pg_connect ("host=ec2-34-198-186-145.compute-1.amazonaws.com dbname=db9m5c4ioomblq user=artjpzwsplviqj 
+        password=acef05613fbc6756d362b3411f1e025eaaa4fc2a6b56aeee2ecfc264b7092b83") or die('Could not connect: ' . pg_last_error());
 
-if (isset($_GET['Calcular'])){
-    $val1= $_GET['num1'];
-    $val2= $_GET['num2'];
-    $op= $_GET['operaciones'];
+    if (isset($_GET['Calcular'])){
+        $num1= $_GET['num1'];
+        $num2= $_GET['num2'];
+        $operacion= $_GET['operacion'];
 
-    if ($val1 != "" && $val2 != ""){
-        if ($op == "Suma"){
-            $result=$val1+$val2; 
-        }else if ($op == "Resta"){
-            $result=$val1-$val2;
-        }else if ($op == "Multiplicacion"){
-            $result=$val1*$val2;
-        }else if ($op == "Division"){
-            if ($val1 != 0 && $val2 != 0 && $val1 > 0 && $val2 >0){
-                $result=$val1/$val2;
-                // echo $resultado;
+        if ($num1 != "" && $num2 != ""){
+            if ($operacion == "Suma"){
+                $resultado=$num1+$num2; 
+            }else if ($operacion == "Resta"){
+                $resultado=$num1-$num2;
+            }else if ($operacion == "Multiplicacion"){
+                $resultado=$num1*$num2;
+            }else if ($operacion == "Division"){
+                if ($num1 != 0 && $num2 != 0 && $num1 > 0 && $num2 >0){
+                    $resultado=$num1/$num2;
+                    // echo $resultado;
+                }
+                echo '<html language="javascript">alert("Por favor, ingrese los numeros en los campos.");</html>';
+                // echo "Por favor, ingrese los numores en los campos.";
+            }else if($num1 == "" && $num2 == "" && $operacion == 0){
+                echo '<html language="javascript">alert("Por favor, ingrese los numeros en los campos.");</html>';
             }
-            echo '<html language="javascript">alert("Por favor, ingrese los valores en los campos.");</html>';
-            // echo "Por favor, ingrese los valores en los campos.";
-        }else if($val1 == "" && $val2 == "" && $op == 0){
-            echo '<html language="javascript">alert("Por favor, ingrese los valores en los campos.");</html>';
-        }
     }
     
     if(isset($_REQUEST['Limpiar'])){
-        $val1= $_REQUEST['num1'];
-        $val2= $_REQUEST['num2'];
-        $op = $_REQUEST['operaciones'];
-        if ($val1 == "" && $val2 == "")  {
-            $result = "";
+        $num1= $_REQUEST['num1'];
+        $num2= $_REQUEST['num2'];
+        $operacion = $_REQUEST['operacion'];
+        if ($num1 == "" && $num2 == "")  {
+            $resultado = "";
         }
     }
 }   
@@ -77,26 +76,26 @@ if (isset($_GET['Calcular'])){
                     <form id="form" name="form" action="<?php $_SERVER['PHP_SELF'] ?>" method="get">
                         <div class="col-md-4">
                             <div class="col-lg-12 align-items-center">
-                                <input type="number" class="form-control" id="num1" name="num1" placeholder="Ingrese el primer valor">
+                                <input type="number" class="form-control" id="num1" name="num1" placeholder="Ingrese el primer numero">
                             </div>
                             <div class="col-lg-12">
-                                <input type="number" class="form-control" id="num2" name="num2" placeholder="Ingrese el segundo valor">
+                                <input type="number" class="form-control" id="num2" name="num2" placeholder="Ingrese el segundo numero">
                             </div>
                             <div class="col-lg-12">
-                                <select id="operaciones" name="operaciones" class="form-control">
-                                    <option value="0">Operacion</option>
-                                    <option value="Suma">Suma</option>
-                                    <option value="Resta">Resta</option>
-                                    <option value="Multiplicacion">Multiplicación</option>
-                                    <option value="Division">División</option>
+                                <select id="operacion" name="operacion" class="form-control">
+                                    <option name="0">operacion</option>
+                                    <option name="Suma">Suma</option>
+                                    <option name="Resta">Resta</option>
+                                    <option numue="Multiplicacion">Multiplicación</option>
+                                    <option numue="Division">División</option>
                                 </select>
                             </div>
                             <div class="col-lg-12">
-                                <input type="number" class="form-control" id="result" value="<?php echo $result ?>" placeholder="Resultado" readonly>
+                                <input type="number" class="form-control" id="resultado" name="<?php echo $resultado ?>" placeholder="Resultado" readonly>
                             </div>
                             <div class="col-lg-12">
                                 <input type="submit" class="btn btn-success" id="Calcular" name="Calcular">
-                                <button type="submit" value="Limpiar" class="btn btn-danger">Limpiar</button>
+                                <button type="submit" numue="Limpiar" class="btn btn-danger">Limpiar</button>
                             </div>
                             <div class="col-lg-12">
                                 <input type="hidden" class="form-control" id="fecha" placeholder="<?php echo $fecha=date('Y-m-d H:i:s'); ?>">
@@ -109,7 +108,7 @@ if (isset($_GET['Calcular'])){
 
         <center>
         <div id="content">
-    <!-- End of Topbar -->
+    <!-- End of Top bar -->
     <div>
         <h1>Operaciones</h1>
     </div>
@@ -121,43 +120,78 @@ if (isset($_GET['Calcular'])){
                 <div class="card shadow mb-2">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="tblOperacion" width="99.85%">
-                                <thead>
-                                    <tr>
-                                        <th>id</th>
-                                        <th>Numero 1</th>
-                                        <th>Numero 2</th>                                                                    
-                                        <th>Resultado</th>
-                                        <th>Operacion</th>
-                                        <th>Fecha</th>
-                                    </tr>
-                                </thead>
-                                <?php
+                            <?php
+                                
+                                if ($num1 != "" && $num2 != "" && $num1 != 0 && $num2 != 0)  {
+                                    $consulta = sprintf("INSERT INTO operacion
+                                    VALUES('%s','%s','%s','%s','%s','%s','%s')",$_REQUEST['id'],$_REQUEST['num1'],$_REQUEST['num2'],$_REQUEST['resultado'],$_REQUEST['operacion'],$_REQUEST['fecha']);
+                                    $consulta = pg_query($consulta);
+                                    if($consulta){
+                                    echo "El registro ha sido agregado";
+                                    }else{
+                                        echo "Ocurrió un error! ".pg_last_error();
+}
+                                    }
+                                    // $consulta = pg_query($dbconn, "INSERT INTO operacion values ($_POST$id, '$num1', '$num2', '$resultado', '$operacion', '$fecha')");
+                                    // for ($i=0; $i == $id; $i++) { 
+                                    // }
+                                    // $insertar = "INSERT INTO operacion values (null,'$num1', '$num2', '$resultado', '$operacion', '$fecha')";
                                     
-                                    if ($val1 != "" && $val2 != "" && $val1 != 0 && $val2 != 0)  {
-                                        $insert_sql = "INSERT INTO operacion Values (null, '$val1', '$val2', '$result', '$op', '$fecha')";
-                                        $consulta = mysqli_query($conexion, $insert_sql);
-                                    }
-                
-                                    $sql = "SELECT * FROM operacion ORDER by id DESC LIMIT 10";
-                                    $resultado = mysqli_query($conexion, $sql);
+                                //    function pg_insert_with_schema($dbconn, $operacion, $updates)
+                                //     {
+                                //     $schema = 'public';
+                                //     if (strpos($operacion, '.') !== false)
+                                //         list($schema, $operacion) = explode('.', $operacion);
 
-                                    while($mostrar=mysqli_fetch_array($resultado)){
-                                ?>
-                                <tbody>
-                                    <tr id="fila" class="primeraFila">
-                                        <td><?php echo $mostrar['id']?></td>
-                                        <td><?php echo $mostrar['num1']?></td>
-                                        <td><?php echo $mostrar['num2']?></td>
-                                        <td><?php echo $mostrar['resultado']?></td>
-                                        <td><?php echo $mostrar['operacion']?></td>
-                                        <td><?php echo $mostrar['fecha']?></td>
-                                    </tr>
-                                <?php 
+                                //         if (count($updates) == 0) {
+                                //             $sqli = "INSERT INTO $schema.\"$operacion\" DEFAULT VALUES";
+                                //                 return pg_query($sqli);
+                                //             } else {
+                                //     $sqli = "INSERT INTO $schema.\"$operacion\" ";
+                                            
+                                //     $sqli .= '("';
+                                //     $sqli .= join('", "', array_keys($updates));
+                                //     $sqli .= '")';
+
+                                //     $sqli .= ' values (';
+                                //     for($i = 0; $i < count($updates); $i++)
+                                //     $sqli .= ($i != 0? ', ':'').'$'.($i+1);
+                                //     $sqli .= ')';
+                                //     return pg_query_params($dbconn, $sqli, array_values($updates));
+                                //     }
+                                // }                                        
+                            // }
+            
+                                $sql = "SELECT * FROM operacion ORDER by id DESC LIMIT 10";
+                                $result = pg_query($dbconn, $sql);
+
+                                echo "<table class='table table-bordered' id='tblOperacion' width='99.85%'>\n";
+                                echo "\t\t<thead>\n";
+                                    echo "\t\t<tr>\n";
+                                        echo "\t\t<th>id</th>\n";
+                                        echo "\t\t<th>Primer Número</th>\n";
+                                        echo "\t\t<th>Segundo Número</th>\n";
+                                        echo "\t\t<th>Resultado</th>\n";
+                                        echo "\t\t<th>Operación</th>\n";
+                                        echo "\t\t<th>Fecha</th>\n";
+                                    echo "\t\t</tr>\n";
+                                echo "\t\t</thead>\n";
+                                echo "\t\t<tbody>\n";
+                                while($mostrar = pg_fetch_array($result, null, PGSQL_ASSOC)){
+                                    echo "\t<tr>\n";
+                                    foreach ($mostrar as $id){
+                                        echo "\t\t<td>$id</td>\n";
+                                        echo "\t\t<td>$num1</td>\n";
+                                        echo "\t\t<td>$num2</td>\n";
+                                        echo "\t\t<td>$resultado</td>\n";
+                                        echo "\t\t<td>$operacion</td>\n";
+                                        echo "\t\t<td>$fecha</td>\n";
                                     }
-                                ?>
-                                </tbody>
-                            </table>
+                                    echo "\t</tr>\n";
+                                }
+                                echo "\t\t</tbody>\n";
+                                echo "</table>\n";
+                            ?>
                         </div>
                     </div>
                 </div>
