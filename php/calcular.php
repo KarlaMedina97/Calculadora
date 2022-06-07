@@ -48,9 +48,8 @@
       pg_close();
 
       if( $consulta ){
-        $mensaje = 'Registro satisfactorio. ';
         $aJson['status'] = 1;
-        $aJson['message'] = '$mensaje';
+        $aJson['message'] = 'Registro satisfactorio.';
         // Data
         $aJson['id']    = $numTotalOperaciones;
         $aJson['num1']  = $num1;
