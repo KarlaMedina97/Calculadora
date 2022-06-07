@@ -42,14 +42,15 @@
       $numTotalOperaciones = intval($operacionTotal[0]['totalregistros'])+1;
 
       $sqlInsertOperacion = "INSERT INTO operacion (num1, num2, resultado, operacion, fecha, id)
-        VALUES ( {$num2}, {$num2}, '{$result}', '{$operacion}', '{$sFechaActual}', {$numTotalOperaciones})";
+        VALUES ( {$num1}, {$num2}, '{$result}', '{$operacion}', '{$sFechaActual}', {$numTotalOperaciones})";
       // Ejecutar Sql
       $consulta = pg_query($dbconn, $sqlInsertOperacion);
       pg_close();
 
       if( $consulta ){
+        $mensaje = 'Registro satisfactorio. ';
         $aJson['status'] = 1;
-        $aJson['message'] = 'mensaje';
+        $aJson['message'] = '$mensaje';
         // Data
         $aJson['id']    = $numTotalOperaciones;
         $aJson['num1']  = $num1;
