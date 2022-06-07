@@ -11,12 +11,12 @@
   $aJson = array();
 
   // Data Form
-  $num1 = ( isset($_GET['numero1']) ) ? intval($_GET['numero1']) : null;
-  $num2 = ( isset($_GET['numero2']) ) ? intval($_GET['numero2']) : null;
+  $num1 = ($_GET['numero1']);
+  $num2 = ($_GET['numero2']);
   $operacion = ( isset($_GET['operacion']) ) ? $_GET['operacion'] : null;
   $result = null;
 
-  if( !empty($num1) && !empty($num2) ){
+  if( $num1 != "" && $num2 != "" ){
 
     switch( $operacion ){
       case 'Suma': $result = $num1 + $num2; break;
