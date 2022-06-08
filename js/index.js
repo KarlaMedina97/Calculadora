@@ -11,12 +11,13 @@ $(document).ready(function(){
   $('#form-calculadora').submit(function (){
     if($('#operacion').val('Division')){
       if (($("#numero1").val() <= 0) || ($("#numero2").val() <= 0)){
-        Swal.fire({
-          title: 'Error!',
-          text: 'Por favor, ingrese un valor mayor a cero.',
-          icon: 'error',
-          confirmButtonText: 'Aceptar'
-        });
+          $("#modal-division").modal('show');
+        // Swal.fire({
+        //   title: 'Error!',
+        //   text: 'Por favor, ingrese un valor mayor a cero.',
+        //   icon: 'error',
+        //   confirmButtonText: 'Aceptar'
+        // });
       }
     }
     $.ajax({
