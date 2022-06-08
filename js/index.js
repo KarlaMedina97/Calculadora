@@ -10,7 +10,7 @@ $(document).ready(function(){
 
   // Form calculadora- Historial
   $('#form-calculadora').submit(function (){
-    if($('#operacion').val() =='Division'){
+    if($('#operacion').val() == 'Division'){
       if (($("#numero1").val() <= 0) || ($("#numero2").val() <= 0)){
         $("#modal-division").modal('show');
       }
