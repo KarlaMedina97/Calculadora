@@ -23,7 +23,7 @@
       case 'Resta': $result = $num1-$num2; break;
       case 'Multiplicacion': $result = $num1 * $num2; break;
       case 'Division':
-        if( $num1 >! 0 && $num2 >! 0){
+        if( $num1 > 0 && $num2 > 0 && $num1 != 0  && $num2 != 0){
           $result = $num1 / $num2;
         }else{
           $aJson['status'] = 0;
