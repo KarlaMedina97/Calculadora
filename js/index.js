@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+  // Limpiar variables
   $('#btn-limpiar').on('click', function (){
     $('#numero1').val('');
     $('#numero2').val('');
@@ -7,17 +8,11 @@ $(document).ready(function(){
     $('#txt-result').val('');
   });
 
-  // Form
+  // Form calculadora- Historial
   $('#form-calculadora').submit(function (){
     if($('#operacion').val('Division')){
       if (($("#numero1").val() <= 0) || ($("#numero2").val() <= 0)){
           $("#modal-division").modal('show');
-        // Swal.fire({
-        //   title: 'Error!',
-        //   text: 'Por favor, ingrese un valor mayor a cero.',
-        //   icon: 'error',
-        //   confirmButtonText: 'Aceptar'
-        // });
       }
     }
     $.ajax({
