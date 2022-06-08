@@ -2,6 +2,7 @@
 
   header("Content-Type: application/json");
 
+  // Conexión DB
   $dbconn = pg_connect("
     host=ec2-34-198-186-145.compute-1.amazonaws.com 
     dbname=db9m5c4ioomblq user=artjpzwsplviqj 
